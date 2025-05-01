@@ -83,3 +83,58 @@ export function getIngredientsAndMeasures(meal: any) {
 
   return ingredients;
 }
+
+// Feedback API functions
+export type Feedback = {
+    id: string
+    recipeId: string
+    name: string
+    rating: number
+    comment: string
+    createdAt: string
+  }
+  
+  export type FeedbackInput = Omit<Feedback, "id" | "createdAt">
+  
+  // Simulated API function to get feedback for a recipe
+  export function getFeedbackForRecipe(recipeId: string): Feedback[] {
+    if (typeof window === "undefined") return []
+  
+    try {
+      const feedbackData = localStorage.getItem("recipe-feedback")
+      const allFeedback: Feedback[] = feedbackData ? JSON.parse(feedbackData) : []
+      return allFeedback
+        .filter((feedback) => feedback.recipeId === recipeId)
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    } catch (error) {
+      console.error("Error getting feedback:", error)
+      return []
+    }
+  }
+  
+  // Simulated API function to submit feedback
+  export function submitFeedback(feedback: FeedbackInput): Promise<Feedback> {
+    return new Promise((resolve, reject) => {
+      try {
+        // Simulate network delay
+        setTimeout(() => {
+          const feedbackData = localStorage.getItem("recipe-feedback")
+          const allFeedback: Feedback[] = feedbackData ? JSON.parse(feedbackData) : []
+  
+          const newFeedback: Feedback = {
+            ...feedback,
+            id: `feedback-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+            createdAt: new Date().toISOString(),
+          }
+  
+          const updatedFeedback = [...allFeedback, newFeedback]
+          localStorage.setItem("recipe-feedback", JSON.stringify(updatedFeedback))
+  
+          resolve(newFeedback)
+        }, 500) // 500ms delay to simulate network
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+  
