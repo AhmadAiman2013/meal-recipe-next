@@ -132,7 +132,7 @@ export function FeedbackForm({ recipeId, recipeName }: FeedbackFormProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button type="submit" disabled={isPending}>
+          <Button className="mt-2" type="submit" disabled={isPending}>
             {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
