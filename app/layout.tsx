@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <div className="relative flex min-h-screen flex-col">
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-        </div>
+        <Providers>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </div>
+        </Providers>
       </body>
     </html>
   );
