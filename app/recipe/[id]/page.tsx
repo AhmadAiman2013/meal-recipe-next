@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { useMealDetails } from "@/hooks/use-recipes"
 import { getIngredientsAndMeasures } from "@/lib/api"
+import { FeedbackForm } from "@/components/feedback-form"
+import { FeedbackList } from "@/components/feedback-list"
 
 export default function RecipePage() {
   const params = useParams()
@@ -127,7 +129,16 @@ export default function RecipePage() {
         </div>
       </div>
 
-      
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Recipe Feedback</h2>
+          <FeedbackList recipeId={id} />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Add Your Feedback</h2>
+          <FeedbackForm recipeId={id} recipeName={meal.strMeal} />
+        </div>
+      </div>
     </main>
   )
 }
