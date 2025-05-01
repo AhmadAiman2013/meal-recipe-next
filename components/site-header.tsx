@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { ChefHat } from "lucide-react"
 
+import { ModeToggle } from "@/components/mode-toggle"
+
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
@@ -27,7 +29,7 @@ export function SiteHeader() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-           
+            <ModeToggle />
           </nav>
         </div>
       </div>
